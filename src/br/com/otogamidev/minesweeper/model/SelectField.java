@@ -12,5 +12,17 @@ import java.util.List;
  */
 public class SelectField {
 
+    private final int fieldLine;
+    private final int fieldColumn;
 
+    private boolean fieldOpen;
+    private boolean fieldUndermine;
+    private boolean fieldMarked;
+
+    private List<SelectField> fieldNeighbors = new ArrayList<>();
+
+    public SelectField(int fieldLine, int fieldColumn) {
+        this.fieldLine = fieldLine;
+        this.fieldColumn = fieldColumn;
+    }
 }
