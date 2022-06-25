@@ -21,8 +21,34 @@ public class SelectField {
 
     private List<SelectField> fieldNeighbors = new ArrayList<>();
 
-    public SelectField(int fieldLine, int fieldColumn) {
+    SelectField(final int fieldLine, final int fieldColumn) {
         this.fieldLine = fieldLine;
         this.fieldColumn = fieldColumn;
+    }
+
+    /**
+     * Check if the field, representing the informed neighbor, is really a neighbor.
+     * @param neighbor Field informed as neighbor to be checked.
+     * @return If yes, it returns true and adds the informed neighbor, and if not, it returns false.
+     * @implNote Lesson 231 - Adding neighbors.
+     */
+    boolean checkAndAddNeighbor(final SelectField neighbor) {
+        boolean differentLine = (fieldLine != neighbor.fieldLine);
+        boolean differentColumn = (fieldColumn != neighbor.fieldColumn);
+        boolean diagonalLine = (differentLine && differentColumn);
+
+        int deltaLine = Math.abs(fieldLine - neighbor.fieldLine);
+        int deltaColumn = Math.abs(fieldColumn - neighbor.fieldColumn);
+        int deltaTotal = (deltaLine + deltaColumn);
+
+        if(deltaTotal == 1 && !diagonalLine){
+            fieldNeighbors.add(neighbor);
+            return true;
+        } else if (deltaTotal == 2 && diagonalLine) {
+            fieldNeighbors.add(neighbor);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
