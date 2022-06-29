@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
+ * This class contains the unit tests of the selected field class.
  * @since 26-06-2022
  * @implNote Class implementation in class 231 of the full Java course.
  * @author henriquematheusalvespereira
