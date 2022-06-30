@@ -96,4 +96,22 @@ public class SelectFieldTest {
         }
     }
 
+    @Test
+    void checkFirstDefaultValueMarkedField(){
+        assertFalse(defaultField.isFieldMarked());
+    }
+
+    @Test
+    void checkSecondDefaultValueMarkedField(){
+        defaultField.changeMarkedField();
+        defaultField.changeMarkedField();
+        assertFalse(defaultField.isFieldMarked());
+    }
+
+    @Test
+    void checkChangeMarkedField() {
+        defaultField.changeMarkedField();
+        assertTrue(defaultField.isFieldMarked());
+    }
+
 }

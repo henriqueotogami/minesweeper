@@ -100,9 +100,7 @@ public class SelectField {
      * Change the state of the field, whether the field is marked or not.
      */
     void changeMarkedField() {
-        if(isFieldMarked() == false) {
-            setFieldMarked(!isFieldMarked());
-        }
+        setFieldMarked(!isFieldMarked());
     }
 
     /**
