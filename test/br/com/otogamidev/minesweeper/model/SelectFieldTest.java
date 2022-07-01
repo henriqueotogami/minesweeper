@@ -143,4 +143,31 @@ public class SelectFieldTest {
         assertTrue(defaultField.isFieldUndermine());
         assertThrows(ExplosionException.class, () -> { defaultField.openField(); });
     }
+
+    @Test
+    void checkOpenMultipleNeighboringFields(){
+        SelectField topLeftNeighborOfMyTopLeftNeighborField = new SelectField(1,1);
+        SelectField myTopLeftNeighborField = new SelectField(2,2);
+        myTopLeftNeighborField.checkAndAddNeighbor(topLeftNeighborOfMyTopLeftNeighborField);
+
+        defaultField.checkAndAddNeighbor(myTopLeftNeighborField);
+        assertTrue(defaultField.openField());
+        assertTrue((myTopLeftNeighborField.isFieldOpen()) && (topLeftNeighborOfMyTopLeftNeighborField.isFieldOpen()));
+    }
+
+    @Test
+    void checkOpenMultipleNeighboringUnderminedFields(){
+        SelectField topLeftNeighborOfMyTopLeftNeighborField = new SelectField(1,1);
+        SelectField topNeighborOfMyTopLeftNeighborField = new SelectField(1,2);
+        SelectField myTopLeftNeighborField = new SelectField(2,2);
+
+        topNeighborOfMyTopLeftNeighborField.setFieldUndermine(true);
+        myTopLeftNeighborField.checkAndAddNeighbor(topLeftNeighborOfMyTopLeftNeighborField);
+        myTopLeftNeighborField.checkAndAddNeighbor(topNeighborOfMyTopLeftNeighborField);
+
+        defaultField.checkAndAddNeighbor(myTopLeftNeighborField);
+        defaultField.openField();
+        assertTrue(myTopLeftNeighborField.isFieldOpen());
+        assertTrue(topLeftNeighborOfMyTopLeftNeighborField.isFieldClosed());
+    }
 }

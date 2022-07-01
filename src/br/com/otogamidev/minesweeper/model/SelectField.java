@@ -68,6 +68,8 @@ public class SelectField {
         this.fieldOpen = fieldOpen;
     }
 
+    public boolean isFieldClosed() { return !isFieldOpen(); }
+
     /**
      * @return True if the field is undermined, and false if not.
      */
