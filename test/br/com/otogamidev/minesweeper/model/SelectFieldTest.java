@@ -1,10 +1,10 @@
 package br.com.otogamidev.minesweeper.model;
 
+import br.com.otogamidev.minesweeper.exception.ExplosionException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * This class contains the unit tests of the selected field class.
@@ -114,4 +114,33 @@ public class SelectFieldTest {
         assertTrue(defaultField.isFieldMarked());
     }
 
+    @Test
+    void checkOpenSafeField(){
+        assertFalse(defaultField.isFieldUndermine());
+        assertFalse(defaultField.isFieldMarked());
+        assertTrue(defaultField.openField());
+    }
+
+    @Test
+    void checkOpenMarkedField(){
+        defaultField.changeMarkedField();
+        assertTrue(defaultField.isFieldMarked());
+        assertFalse(defaultField.openField());
+    }
+
+    @Test
+    void checkOpenMarkedAndUnderminedField(){
+        defaultField.changeMarkedField();
+        assertTrue(defaultField.isFieldMarked());
+        defaultField.setFieldUndermine(true);
+        assertTrue(defaultField.isFieldUndermine());
+        assertFalse(defaultField.openField());
+    }
+
+    @Test
+    void checkOpenUnderminedField(){
+        defaultField.setFieldUndermine(true);
+        assertTrue(defaultField.isFieldUndermine());
+        assertThrows(ExplosionException.class, () -> { defaultField.openField(); });
+    }
 }
