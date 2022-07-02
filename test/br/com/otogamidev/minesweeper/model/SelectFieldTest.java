@@ -4,12 +4,14 @@ import br.com.otogamidev.minesweeper.exception.ExplosionException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * This class contains the unit tests of the selected field class.
  * @since 26-06-2022
- * @implNote Class implementation in class 231 of the full Java course.
+ * @implNote Class implementation in lecture 231 of the full Java course.
  * @author henriquematheusalvespereira
  */
 public class SelectFieldTest {
@@ -20,7 +22,7 @@ public class SelectFieldTest {
 
     /**
      * Method to initialize the default field, which will be used for neighboring field checks.
-     * @implNote Lesson 231 - Adding neighbors.
+     * @implNote Lecture 231 - Adding neighbors.
      */
     @BeforeEach
     void startSelectField() {
@@ -28,8 +30,8 @@ public class SelectFieldTest {
     }
 
     /**
-     * Unit test to verify if a field informed by the row x column position IS A neighbor of another pre-defined field.
-     * @implNote Lesson 231 - Adding neighbors.
+     * Method to verify if a field informed by the row x column position IS A neighbor of another pre-defined field.
+     * @implNote Lecture 231 - Adding neighbors.
      */
     void checkSingleNeighbor(final int checkFieldLine, final int checkFieldColumn) {
         SelectField checkField = new SelectField(checkFieldLine, checkFieldColumn);
@@ -37,6 +39,10 @@ public class SelectFieldTest {
         assertTrue(checkFieldIsNeighbor);
     }
 
+    /**
+     * Unit test to verify the logic adopted from neighboring fields of a pre-defined field.
+     * @implNote Lecture 231 - Adding neighbors.
+     */
     @Test
     void checkAroundNeighbors() {
         final int leftFieldLine = 3;
@@ -68,9 +74,9 @@ public class SelectFieldTest {
     }
 
     /**
-     * Unit test to verify if a field informed by the row x column position IS NOT a neighbor of another pre-defined
+     * Method to verify if a field informed by the row x column position IS NOT a neighbor of another pre-defined
      * field.
-     * @implNote Lesson 231 - Adding neighbors.
+     * @implNote Lecture 231 - Adding neighbors.
      */
     void checkSingleNoNeighbor(final int checkFieldLine, final int checkFieldColumn) {
         SelectField checkField = new SelectField(checkFieldLine, checkFieldColumn);
@@ -78,6 +84,10 @@ public class SelectFieldTest {
         assertFalse(checkFieldIsNeighbor);
     }
 
+    /**
+     * Unit test to verify the adopted logic of nearby fields, which are not neighbors, of a pre-defined field.
+     * @implNote Lecture 231 - Adding neighbors.
+     */
     @Test
     void checkNearbyNoNeighbors() {
         int leftNearbyFieldLine = 1;
@@ -96,11 +106,19 @@ public class SelectFieldTest {
         }
     }
 
+    /**
+     * Unit test to verify that the default value of a marked field is false.
+     * @implNote Lecture 233 - Implementation of the selection field class and unit tests.
+     */
     @Test
     void checkFirstDefaultValueMarkedField(){
         assertFalse(defaultField.isFieldMarked());
     }
 
+    /**
+     * Unit test to check the marking and deselection of a field.
+     * @implNote Lecture 233 - Implementation of the selection field class and unit tests.
+     */
     @Test
     void checkSecondDefaultValueMarkedField(){
         defaultField.changeMarkedField();
@@ -108,12 +126,20 @@ public class SelectFieldTest {
         assertFalse(defaultField.isFieldMarked());
     }
 
+    /**
+     * Unit test to check the marking of a field.
+     * @implNote Lecture 233 - Implementation of the selection field class and unit tests.
+     */
     @Test
     void checkChangeMarkedField() {
         defaultField.changeMarkedField();
         assertTrue(defaultField.isFieldMarked());
     }
 
+    /**
+     * Unit test to verify the safe opening of a field that is not mined and not marked.
+     * @implNote Lecture 233 - Implementation of the selection field class and unit tests.
+     */
     @Test
     void checkOpenSafeField(){
         assertFalse(defaultField.isFieldUndermine());
@@ -121,6 +147,10 @@ public class SelectFieldTest {
         assertTrue(defaultField.openField());
     }
 
+    /**
+     * Unit test to verify the opening of a field that is only marked.
+     * @implNote Lecture 233 - Implementation of the selection field class and unit tests.
+     */
     @Test
     void checkOpenMarkedField(){
         defaultField.changeMarkedField();
@@ -128,6 +158,10 @@ public class SelectFieldTest {
         assertFalse(defaultField.openField());
     }
 
+    /**
+     * Unit test to verify the opening of a field that is marked and mined.
+     * @implNote Lecture 233 - Implementation of the selection field class and unit tests.
+     */
     @Test
     void checkOpenMarkedAndUnderminedField(){
         defaultField.changeMarkedField();
@@ -137,6 +171,10 @@ public class SelectFieldTest {
         assertFalse(defaultField.openField());
     }
 
+    /**
+     * Unit test to verify the opening of a minefield.
+     * @implNote Lecture 233 - Implementation of the selection field class and unit tests.
+     */
     @Test
     void checkOpenUnderminedField(){
         defaultField.setFieldUndermine(true);
@@ -144,6 +182,10 @@ public class SelectFieldTest {
         assertThrows(ExplosionException.class, () -> { defaultField.openField(); });
     }
 
+    /**
+     * Unit test to verify the opening of multiple fields, neighbors and near.
+     * @implNote Lecture 233 - Implementation of the selection field class and unit tests.
+     */
     @Test
     void checkOpenMultipleNeighboringFields(){
         SelectField topLeftNeighborOfMyTopLeftNeighborField = new SelectField(1,1);
@@ -155,6 +197,10 @@ public class SelectFieldTest {
         assertTrue((myTopLeftNeighborField.isFieldOpen()) && (topLeftNeighborOfMyTopLeftNeighborField.isFieldOpen()));
     }
 
+    /**
+     * Unit test to verify the opening of multiple fields, neighbors and near, and that are mined.
+     * @implNote Lecture 233 - Implementation of the selection field class and unit tests.
+     */
     @Test
     void checkOpenMultipleNeighboringUnderminedFields(){
         SelectField topLeftNeighborOfMyTopLeftNeighborField = new SelectField(1,1);
