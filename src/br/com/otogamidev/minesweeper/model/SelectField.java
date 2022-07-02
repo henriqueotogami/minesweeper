@@ -9,7 +9,7 @@ import java.util.List;
  * This class represents the structure of each square selection field in the game, in which the user must take an
  * action by clicking on it, either to open it or mark it to keep it closed.
  * @since 25-06-2022
- * @implNote Class implementation in class 228 of the full Java course.
+ * @implNote Class implementation in lecture 228 of the full Java course.
  * @author henriquematheusalvespereira
  */
 public class SelectField {
@@ -68,6 +68,9 @@ public class SelectField {
         this.fieldOpen = fieldOpen;
     }
 
+    /**
+     * @return True if the field is closed, and false if not.
+     */
     public boolean isFieldClosed() { return !isFieldOpen(); }
 
     /**
@@ -106,6 +109,16 @@ public class SelectField {
     }
 
     /**
+     * @return Integer number representing the row where the field is positioned.
+     */
+    public int getFieldLine() { return fieldLine; }
+
+    /**
+     * @return Integer number representing the column where the field is positioned.
+     */
+    public int getFieldColumn() { return fieldColumn; }
+
+    /**
      * @return True if the field is open and with no undermines around it.
      */
     boolean openField() {
@@ -128,5 +141,52 @@ public class SelectField {
      */
     boolean safeNeighborhood(){
         return fieldNeighbors.stream().noneMatch(neighbor -> neighbor.isFieldUndermine());
+    }
+
+    /**
+     * @return True if the open field is not mined or if the minefield is marked.
+     */
+    boolean safeFieldObjective(){
+        final boolean safeFieldRevealed = (isFieldUndermine() == false) && (isFieldOpen());
+        final boolean safeFieldProtected = (isFieldUndermine()) && (isFieldMarked());
+        return safeFieldRevealed || safeFieldProtected;
+    }
+
+    /**
+     * @return Number of undermines in the neighborhood.
+     */
+    long quantityOfUnderminesNeighborhood() {
+        return fieldNeighbors.stream().filter(neighbor -> neighbor.isFieldUndermine()).count();
+    }
+
+    /**
+     * Method that resets the field to its initial state, where it is closed, unchecked, and mine-free.
+     */
+    void resetSelectedField() {
+        setFieldOpen(false);
+        setFieldMarked(false);
+        setFieldUndermine(false);
+    }
+
+    /**
+     * @return Each predicted state of the field represented by a character in text format.
+     */
+    public String toString() {
+        final String FIELD_MARKED = "x";
+        final String FIELD_EXPLOSION = "*";
+        final String FIELD_EMPTY = " ";
+        final String FIELD_UNDEFINED = "?";
+
+        if(isFieldMarked()){
+            return FIELD_MARKED;
+        } else if(isFieldOpen() && isFieldUndermine()){
+            return FIELD_EXPLOSION;
+        } else if(isFieldOpen() && (quantityOfUnderminesNeighborhood() > 0)){
+            return Long.toString(quantityOfUnderminesNeighborhood());
+        } else if(isFieldOpen()){
+            return FIELD_EMPTY;
+        } else {
+            return FIELD_UNDEFINED;
+        }
     }
 }
