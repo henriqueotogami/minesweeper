@@ -2,6 +2,7 @@ package br.com.otogamidev.minesweeper.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Implementation of the class that represents the game board, which will contain the user selection fields, which
@@ -96,6 +97,30 @@ public class GameBoard {
      * Method that draws all fields with mines on the game board.
      */
     private void raffleBoardUndermines() {
+        long underminesArmed = 0;
+        Predicate<SelectField> boardFieldsUndermined = (boardField -> boardField.isFieldUndermine());
+
+        do {
+            underminesArmed = getBoardFields().stream().filter(boardFieldsUndermined).count();
+            int fieldUnderminedRandom = (int) (Math.random() * getBoardFields().size());
+            getBoardFields().get(fieldUnderminedRandom).setFieldUndermine(true);
+        } while(getBoardUndermines() > underminesArmed);
 
     }
+
+    /**
+     * @return True if the selected board fields have been opened and securely marked.
+     */
+    public boolean safeBoardFieldObjective() {
+        return getBoardFields().stream().allMatch(boardField -> boardField.safeFieldObjective());
+    }
+
+    /**
+     * Method to restart the game.
+     */
+    public void restartBoardGame() {
+        getBoardFields().stream().forEach(boardField -> boardField.resetSelectedField());
+        raffleBoardUndermines();
+    }
+
 }
