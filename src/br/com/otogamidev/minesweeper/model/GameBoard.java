@@ -123,4 +123,48 @@ public class GameBoard {
         raffleBoardUndermines();
     }
 
+    /**
+     * @return Returns the game board in text format to be printed on the console.
+     */
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        final String EMPTY_SPACE = " ";
+        final String NEW_LINE = "\n";
+        int indexField = 0;
+        for(int line = 0; getBoardLines() > line; line++){
+            for(int column = 0; getBoardColumns() > column; column++) {
+                stringBuilder.append(EMPTY_SPACE);
+                stringBuilder.append(getBoardFields().get(indexField));
+                stringBuilder.append(EMPTY_SPACE);
+                indexField++;
+            }
+            stringBuilder.append(NEW_LINE);
+        }
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Method to open the selected minefield.
+     * @param boardLine Whole number representing the board line.
+     * @param boardColumn Whole number representing the board column.
+     */
+    public void openBoardField(final int boardLine, final int boardColumn) {
+        getBoardFields().parallelStream()
+                .filter(boardField -> ((boardField.getFieldLine() == boardLine) && (boardField.getFieldColumn() == boardColumn)))
+                .findFirst()
+                .ifPresent(boardField -> boardField.openField());
+    }
+
+    /**
+     * Method to change the state of the selected minefield.
+     * @param boardLine Whole number representing the board line.
+     * @param boardColumn Whole number representing the board column.
+     */
+    public void changeMarkedBoardField(final int boardLine, final int boardColumn) {
+        getBoardFields().parallelStream()
+                .filter(boardField -> ((boardField.getFieldLine() == boardLine) && (boardField.getFieldColumn() == boardColumn)))
+                .findFirst()
+                .ifPresent(boardField -> boardField.changeMarkedField());
+    }
+
 }
