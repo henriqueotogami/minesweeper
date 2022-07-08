@@ -132,9 +132,20 @@ public class GameBoard {
         StringBuilder stringBuilder = new StringBuilder();
         final String EMPTY_SPACE = " ";
         final String NEW_LINE = "\n";
+
+        stringBuilder.append(EMPTY_SPACE);
+        for(int indexColumnHeader = 0; getBoardColumns() > indexColumnHeader; indexColumnHeader++) {
+            stringBuilder.append(EMPTY_SPACE);
+            stringBuilder.append(indexColumnHeader);
+            stringBuilder.append(EMPTY_SPACE);
+        }
+        stringBuilder.append(NEW_LINE);
+
         int indexField = 0;
-        for(int line = 0; getBoardLines() > line; line++){
-            for(int column = 0; getBoardColumns() > column; column++) {
+        for(int indexLineField = 0; getBoardLines() > indexLineField; indexLineField++) {
+            stringBuilder.append(indexLineField);
+            stringBuilder.append(EMPTY_SPACE);
+            for(int indexColumnField = 0; getBoardColumns() > indexColumnField; indexColumnField++){
                 stringBuilder.append(EMPTY_SPACE);
                 stringBuilder.append(getBoardFields().get(indexField));
                 stringBuilder.append(EMPTY_SPACE);
@@ -142,6 +153,7 @@ public class GameBoard {
             }
             stringBuilder.append(NEW_LINE);
         }
+
         return stringBuilder.toString();
     }
 
