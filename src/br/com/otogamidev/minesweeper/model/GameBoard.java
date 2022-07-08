@@ -1,5 +1,7 @@
 package br.com.otogamidev.minesweeper.model;
 
+import br.com.otogamidev.minesweeper.exception.ExplosionException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -149,10 +151,15 @@ public class GameBoard {
      * @param boardColumn Whole number representing the board column.
      */
     public void openBoardField(final int boardLine, final int boardColumn) {
-        getBoardFields().parallelStream()
-                .filter(boardField -> ((boardField.getFieldLine() == boardLine) && (boardField.getFieldColumn() == boardColumn)))
-                .findFirst()
-                .ifPresent(boardField -> boardField.openField());
+        try {
+            getBoardFields().parallelStream()
+                    .filter(boardField -> ((boardField.getFieldLine() == boardLine) && (boardField.getFieldColumn() == boardColumn)))
+                    .findFirst()
+                    .ifPresent(boardField -> boardField.openField());
+        } catch(ExplosionException explosion) {
+            getBoardFields().forEach(boardField -> boardField.setFieldOpen(true));
+            throw explosion;
+        }
     }
 
     /**

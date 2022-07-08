@@ -66,8 +66,10 @@ public class GameBoardConsole {
                 final int capturedYaxis = gameBoardAxes.next();
                 System.out.println("X axis: " + capturedXaxis);
                 System.out.println("Y axis: " + capturedYaxis);
-
-                messageToUser = "Open: type 1." + CARRIAGE_RETURN + "Close: type 2.";
+                System.out.println("Type an integer value below.");
+                messageToUser = "Open: type 1." + CARRIAGE_RETURN +
+                                "Close: type 2" + CARRIAGE_RETURN +
+                                "Type your choice: ";
                 capturedValue = captureValue(messageToUser);
                 if(OPEN.equals(capturedValue)){
                     getGameBoard().openBoardField(capturedXaxis, capturedYaxis);
@@ -78,6 +80,7 @@ public class GameBoardConsole {
             System.out.println("You won!");
         } catch(ExplosionException explosion){
             System.out.println("Explosion!");
+            System.out.println(getGameBoard());
             System.out.println("You lose!");
         }
     }

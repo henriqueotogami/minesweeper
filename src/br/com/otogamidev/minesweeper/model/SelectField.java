@@ -64,7 +64,7 @@ public class SelectField {
     /**
      * @param fieldOpen Define if the field is open or not.
      */
-    public void setFieldOpen(final boolean fieldOpen) {
+    void setFieldOpen(final boolean fieldOpen) {
         this.fieldOpen = fieldOpen;
     }
 
