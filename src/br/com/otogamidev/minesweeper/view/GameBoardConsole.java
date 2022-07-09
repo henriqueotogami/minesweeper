@@ -77,6 +77,8 @@ public class GameBoardConsole {
                     getGameBoard().changeMarkedBoardField(capturedXaxis, capturedYaxis);
                 }
             }
+            System.out.println("Congrats!");
+            System.out.println(getGameBoard());
             System.out.println("You won!");
         } catch(ExplosionException explosion){
             System.out.println("Explosion!");
