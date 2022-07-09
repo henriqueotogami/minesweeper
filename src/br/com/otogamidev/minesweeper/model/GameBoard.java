@@ -103,8 +103,8 @@ public class GameBoard {
         Predicate<SelectField> boardFieldsUndermined = (boardField -> boardField.isFieldUndermine());
 
         do {
-            int fieldUnderminedRandom = (int) (Math.random() * getBoardFields().size());
             underminesArmed = getBoardFields().stream().filter(boardFieldsUndermined).count();
+            int fieldUnderminedRandom = (int) (Math.random() * getBoardFields().size());
             getBoardFields().get(fieldUnderminedRandom).setFieldUndermine(true);
         } while(getBoardUndermines() > underminesArmed);
 
