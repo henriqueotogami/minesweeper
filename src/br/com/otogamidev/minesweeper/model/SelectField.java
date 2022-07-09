@@ -23,6 +23,11 @@ public class SelectField {
 
     private List<SelectField> fieldNeighbors = new ArrayList<>();
 
+    /**
+     * Construction method of a game board field.
+     * @param fieldLine Line of board field position.
+     * @param fieldColumn Column of board field position.
+     */
     SelectField(final int fieldLine, final int fieldColumn) {
         this.fieldLine = fieldLine;
         this.fieldColumn = fieldColumn;

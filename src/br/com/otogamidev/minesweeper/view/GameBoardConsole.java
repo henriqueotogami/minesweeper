@@ -8,24 +8,40 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Scanner;
 
+/**
+ * Class responsible for managing the game board when running on the console.
+ */
 public class GameBoardConsole {
 
     private GameBoard gameBoard;
     private Scanner scannerInput = new Scanner(System.in);
 
+    /**
+     * Method that runs the game board on the console.
+     * @param gameBoard Game board instance.
+     */
     public GameBoardConsole(final GameBoard gameBoard) {
         this.gameBoard = gameBoard;
         executeGame();
     }
 
+    /**
+     * @return The game board instance.
+     */
     public GameBoard getGameBoard() {
         return gameBoard;
     }
 
+    /**
+     * @return Returns the characters entered by the user in the console.
+     */
     public Scanner getScannerInput() {
         return scannerInput;
     }
 
+    /**
+     * Method that executes game logic.
+     */
     private void executeGame() {
         final String NO_CONTINUE_GAME = "n";
         final String YES_CONTINUE_GAME = "Y";
@@ -50,6 +66,9 @@ public class GameBoardConsole {
         }
     }
 
+    /**
+     * Method that manages the structure of the game.
+     */
     private void gameBoardStructure() {
         final String OPEN = "1";
         final String CLOSE = "2";
@@ -87,6 +106,10 @@ public class GameBoardConsole {
         }
     }
 
+    /**
+     * @param messageToUser Message to be printed to the user on the console.
+     * @return Returns the captured value that was entered by the user in the input.
+     */
     private String captureValue(final String messageToUser){
         System.out.print(messageToUser);
         final String QUIT_GAME = "QUIT";
