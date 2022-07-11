@@ -61,7 +61,7 @@ public class GameBoard {
     /**
      * @return Returns an integer representing the number of undermines on the game board.
      */
-    private int getBoardUndermines() { return boardUndermines; }
+    public int getBoardUndermines() { return boardUndermines; }
 
     /**
      * @param boardUndermines Returns an integer representing the number of undermines on the game board.
@@ -106,7 +106,7 @@ public class GameBoard {
             int fieldUnderminedRandom = (int) (Math.random() * getBoardFields().size());
             underminesArmed = getBoardFields().stream().filter(boardFieldsUndermined).count();
             getBoardFields().get(fieldUnderminedRandom).setFieldUndermine(true);
-        } while(getBoardUndermines() > underminesArmed);
+        } while((getBoardUndermines()-1) > underminesArmed);
 
     }
 
