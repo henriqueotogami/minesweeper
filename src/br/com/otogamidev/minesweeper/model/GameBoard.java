@@ -61,7 +61,7 @@ public class GameBoard {
     /**
      * @return Returns an integer representing the number of undermines on the game board.
      */
-    public int getBoardUndermines() { return boardUndermines; }
+    private int getBoardUndermines() { return boardUndermines; }
 
     /**
      * @param boardUndermines Returns an integer representing the number of undermines on the game board.
