@@ -1,5 +1,6 @@
-package br.com.otogamidev.minesweeper.model;
+package br.com.otogamidev.minesweeper.controller;
 
+import br.com.otogamidev.minesweeper.model.GameBoard;
 import br.com.otogamidev.minesweeper.view.GameBoardConsole;
 
 /**

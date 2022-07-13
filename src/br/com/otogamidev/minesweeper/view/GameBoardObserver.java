@@ -1,13 +1,13 @@
-package br.com.otogamidev.minesweeper.view.swing;
+package br.com.otogamidev.minesweeper.view;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Observer {
+public class GameBoardObserver {
 
     public static void main(String[] args) {
 
-        JFrame window = new JFrame("Observer");
+        JFrame window = new JFrame("GameBoardObserver");
 
         window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         window.setSize(600,200);

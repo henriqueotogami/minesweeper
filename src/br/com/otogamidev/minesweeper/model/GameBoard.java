@@ -19,7 +19,7 @@ public class GameBoard {
     private int boardColumns;
     private int boardUndermines;
 
-    private final List<SelectField> boardFields = new ArrayList<SelectField>();
+    private final List<BoardField> boardFields = new ArrayList<BoardField>();
 
     /**
      * Constructor method that is responsible for generating the game board selection fields, mapping neighboring
@@ -71,7 +71,7 @@ public class GameBoard {
     /**
      * @return A list containing the defined fields of the board, sorted using rows and columns.
      */
-    private List<SelectField> getBoardFields() { return boardFields; }
+    private List<BoardField> getBoardFields() { return boardFields; }
 
     /**
      * Method that generates all selection fields on the game board.
@@ -79,7 +79,7 @@ public class GameBoard {
     private void generateBoardFields(){
         for(int indexLine = 0; getBoardLines() > indexLine; indexLine++) {
             for(int indexColumn = 0; getBoardColumns() > indexColumn; indexColumn++){
-                boardFields.add(new SelectField(indexLine, indexColumn));
+                boardFields.add(new BoardField(indexLine, indexColumn));
             }
         }
     }
@@ -88,8 +88,8 @@ public class GameBoard {
      * Method that maps all fields neighboring the selection field on the game board.
      */
     private void mappingBoardNeighborhood() {
-        for(SelectField boardSelectedField: boardFields){
-            for(SelectField boardNeighborField: boardFields) {
+        for(BoardField boardSelectedField: boardFields){
+            for(BoardField boardNeighborField: boardFields) {
                 boardSelectedField.checkAndAddNeighbor(boardNeighborField);
             }
         }
@@ -100,7 +100,7 @@ public class GameBoard {
      */
     private void raffleBoardUndermines() {
         long underminesArmed = 0;
-        Predicate<SelectField> boardFieldsUndermined = (boardField -> boardField.isFieldUndermine());
+        Predicate<BoardField> boardFieldsUndermined = (boardField -> boardField.isFieldUndermine());
 
         do {
             int fieldUnderminedRandom = (int) (Math.random() * getBoardFields().size());

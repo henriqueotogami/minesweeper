@@ -14,11 +14,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @implNote Class implementation in lecture 231 of the full Java course.
  * @author henriquematheusalvespereira
  */
-public class SelectFieldTest {
+public class BoardFieldTest {
 
     private final int defaultFieldLine = 3;
     private final int defaultFieldColumn = 3;
-    private SelectField defaultField;
+    private BoardField defaultField;
 
     /**
      * Method to initialize the default field, which will be used for neighboring field checks.
@@ -26,7 +26,7 @@ public class SelectFieldTest {
      */
     @BeforeEach
     void startSelectField() {
-        defaultField = new SelectField(defaultFieldLine, defaultFieldColumn);
+        defaultField = new BoardField(defaultFieldLine, defaultFieldColumn);
     }
 
     /**
@@ -34,7 +34,7 @@ public class SelectFieldTest {
      * @implNote Lecture 231 - Adding neighbors.
      */
     void checkSingleNeighbor(final int checkFieldLine, final int checkFieldColumn) {
-        SelectField checkField = new SelectField(checkFieldLine, checkFieldColumn);
+        BoardField checkField = new BoardField(checkFieldLine, checkFieldColumn);
         boolean checkFieldIsNeighbor = defaultField.checkAndAddNeighbor(checkField);
         assertTrue(checkFieldIsNeighbor);
     }
@@ -79,7 +79,7 @@ public class SelectFieldTest {
      * @implNote Lecture 231 - Adding neighbors.
      */
     void checkSingleNoNeighbor(final int checkFieldLine, final int checkFieldColumn) {
-        SelectField checkField = new SelectField(checkFieldLine, checkFieldColumn);
+        BoardField checkField = new BoardField(checkFieldLine, checkFieldColumn);
         boolean checkFieldIsNeighbor = defaultField.checkAndAddNeighbor(checkField);
         assertFalse(checkFieldIsNeighbor);
     }
@@ -188,8 +188,8 @@ public class SelectFieldTest {
      */
     @Test
     void checkOpenMultipleNeighboringFields(){
-        SelectField topLeftNeighborOfMyTopLeftNeighborField = new SelectField(1,1);
-        SelectField myTopLeftNeighborField = new SelectField(2,2);
+        BoardField topLeftNeighborOfMyTopLeftNeighborField = new BoardField(1,1);
+        BoardField myTopLeftNeighborField = new BoardField(2,2);
         myTopLeftNeighborField.checkAndAddNeighbor(topLeftNeighborOfMyTopLeftNeighborField);
 
         defaultField.checkAndAddNeighbor(myTopLeftNeighborField);
@@ -203,9 +203,9 @@ public class SelectFieldTest {
      */
     @Test
     void checkOpenMultipleNeighboringUnderminedFields(){
-        SelectField topLeftNeighborOfMyTopLeftNeighborField = new SelectField(1,1);
-        SelectField topNeighborOfMyTopLeftNeighborField = new SelectField(1,2);
-        SelectField myTopLeftNeighborField = new SelectField(2,2);
+        BoardField topLeftNeighborOfMyTopLeftNeighborField = new BoardField(1,1);
+        BoardField topNeighborOfMyTopLeftNeighborField = new BoardField(1,2);
+        BoardField myTopLeftNeighborField = new BoardField(2,2);
 
         topNeighborOfMyTopLeftNeighborField.setFieldUndermine(true);
         myTopLeftNeighborField.checkAndAddNeighbor(topLeftNeighborOfMyTopLeftNeighborField);

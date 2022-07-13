@@ -1,6 +1,7 @@
 package br.com.otogamidev.minesweeper.model;
 
 import br.com.otogamidev.minesweeper.exception.ExplosionException;
+import br.com.otogamidev.minesweeper.view.GameBoardObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  * @implNote Class implementation in lecture 228 of the full Java course.
  * @author henriquematheusalvespereira
  */
-public class SelectField {
+public class BoardField {
 
     private final int fieldLine;
     private final int fieldColumn;
@@ -21,17 +22,27 @@ public class SelectField {
     private boolean fieldUndermine = false;
     private boolean fieldMarked = false;
 
-    private List<SelectField> fieldNeighbors = new ArrayList<>();
+    private List<BoardField> fieldNeighbors = new ArrayList<>();
+    private List<BoardFieldObserver> boardFieldObservers = new ArrayList<>();
 
     /**
      * Construction method of a game board field.
      * @param fieldLine Line of board field position.
      * @param fieldColumn Column of board field position.
      */
-    SelectField(final int fieldLine, final int fieldColumn) {
+    BoardField(final int fieldLine, final int fieldColumn) {
         this.fieldLine = fieldLine;
         this.fieldColumn = fieldColumn;
     }
+
+    public void registerObserver(final BoardFieldObserver boardFieldObserver){
+        boardFieldObservers.add(boardFieldObserver);
+    }
+
+    private void notifyObservers(final BoardFieldEvents boardFieldEvent){
+        boardFieldObservers.stream()
+                .forEach(boardFieldObserver -> boardFieldObserver.eventOccurred(this, boardFieldEvent));
+    };
 
     /**
      * Check if the field, representing the informed neighbor, is really a neighbor.
@@ -39,7 +50,7 @@ public class SelectField {
      * @return If yes, it returns true and adds the informed neighbor, and if not, it returns false.
      * @implNote Lesson 231 - Adding neighbors.
      */
-    boolean checkAndAddNeighbor(final SelectField neighbor) {
+    boolean checkAndAddNeighbor(final BoardField neighbor) {
         boolean differentLine = (fieldLine != neighbor.fieldLine);
         boolean differentColumn = (fieldColumn != neighbor.fieldColumn);
         boolean diagonalLine = (differentLine && differentColumn);
@@ -71,6 +82,9 @@ public class SelectField {
      */
     void setFieldOpen(final boolean fieldOpen) {
         this.fieldOpen = fieldOpen;
+        if(isFieldOpen()){
+            notifyObservers(BoardFieldEvents.TO_OPEN);
+        }
     }
 
     /**
@@ -111,6 +125,11 @@ public class SelectField {
      */
     void changeMarkedField() {
         setFieldMarked(!isFieldMarked());
+        if(isFieldMarked()){
+            notifyObservers(BoardFieldEvents.TO_MARK_ON);
+        } else {
+            notifyObservers(BoardFieldEvents.TO_MARK_OFF);
+        }
     }
 
     /**
@@ -128,10 +147,11 @@ public class SelectField {
      */
     boolean openField() {
         if((isFieldOpen() == false) && (isFieldMarked() == false)) {
-            setFieldOpen(true);
             if(isFieldUndermine()) {
-                throw new ExplosionException();
+                notifyObservers(BoardFieldEvents.TO_EXPLODE);
+                return true;
             }
+            setFieldOpen(true);
             if(safeNeighborhood()){
                 fieldNeighbors.forEach(neighbor -> neighbor.openField());
             }
