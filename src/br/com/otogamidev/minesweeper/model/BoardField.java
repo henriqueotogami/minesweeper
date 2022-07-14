@@ -1,8 +1,5 @@
 package br.com.otogamidev.minesweeper.model;
 
-import br.com.otogamidev.minesweeper.exception.ExplosionException;
-import br.com.otogamidev.minesweeper.view.GameBoardObserver;
-
 import java.util.ArrayList;
 import java.util.List;
 

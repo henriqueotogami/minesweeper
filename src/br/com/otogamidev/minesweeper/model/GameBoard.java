@@ -1,9 +1,8 @@
 package br.com.otogamidev.minesweeper.model;
 
-import br.com.otogamidev.minesweeper.exception.ExplosionException;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /**
@@ -13,13 +12,14 @@ import java.util.function.Predicate;
  * @implNote Class implementation in lecture 228 of the full Java course.
  * @author henriquematheusalvespereira
  */
-public class GameBoard {
+public class GameBoard implements BoardFieldObserver {
 
     private int boardLines;
     private int boardColumns;
     private int boardUndermines;
 
     private final List<BoardField> boardFields = new ArrayList<BoardField>();
+    private final List<Consumer<GameBoardEventsResult>> gameBoardObservers = new ArrayList<>();
 
     /**
      * Constructor method that is responsible for generating the game board selection fields, mapping neighboring
@@ -73,13 +73,17 @@ public class GameBoard {
      */
     private List<BoardField> getBoardFields() { return boardFields; }
 
+    public List<Consumer<GameBoardEventsResult>> getGameBoardObservers() { return gameBoardObservers; }
+
     /**
      * Method that generates all selection fields on the game board.
      */
     private void generateBoardFields(){
         for(int indexLine = 0; getBoardLines() > indexLine; indexLine++) {
             for(int indexColumn = 0; getBoardColumns() > indexColumn; indexColumn++){
-                boardFields.add(new BoardField(indexLine, indexColumn));
+                final BoardField newBoardField = new BoardField(indexLine, indexColumn);
+                newBoardField.registerObserver(this);
+                getBoardFields().add(newBoardField);
             }
         }
     }
@@ -163,15 +167,16 @@ public class GameBoard {
      * @param boardColumn Whole number representing the board column.
      */
     public void openBoardField(final int boardLine, final int boardColumn) {
-        try {
-            getBoardFields().parallelStream()
-                    .filter(boardField -> ((boardField.getFieldLine() == boardLine) && (boardField.getFieldColumn() == boardColumn)))
-                    .findFirst()
-                    .ifPresent(boardField -> boardField.openField());
-        } catch(ExplosionException explosion) {
-            getBoardFields().forEach(boardField -> boardField.setFieldOpen(true));
-            throw explosion;
-        }
+        getBoardFields().parallelStream()
+                .filter(boardField -> ((boardField.getFieldLine() == boardLine) && (boardField.getFieldColumn() == boardColumn)))
+                .findFirst()
+                .ifPresent(boardField -> boardField.openField());
+    }
+
+    private void showGameBoardUndermines() {
+        getBoardFields().stream()
+                .filter(boardField -> boardField.isFieldUndermine())
+                .forEach(boardField -> boardField.setFieldOpen(true));
     }
 
     /**
@@ -185,5 +190,25 @@ public class GameBoard {
                 .findFirst()
                 .ifPresent(boardField -> boardField.changeMarkedField());
     }
+
+    public void registerGameBoardObserver(final Consumer<GameBoardEventsResult> gameBoardObserver ){
+        getGameBoardObservers().add(gameBoardObserver);
+    }
+
+    private void notifyGameBoardObservers(final boolean gameBoardEventOccurred){
+        getGameBoardObservers().stream()
+                .forEach(gameBoardObserver -> gameBoardObserver.accept(new GameBoardEventsResult(gameBoardEventOccurred)));
+    }
+
+    @Override
+    public void eventOccurred(final BoardField boardField, final BoardFieldEvents boardFieldEvents) {
+        if(boardFieldEvents == BoardFieldEvents.TO_EXPLODE){
+            showGameBoardUndermines();
+            notifyGameBoardObservers(false);
+        } else if(safeBoardFieldObjective()){
+            notifyGameBoardObservers(true);
+        }
+    }
+
 
 }
