@@ -32,12 +32,20 @@ public class BoardField {
         this.fieldColumn = fieldColumn;
     }
 
+    public List<BoardField> getFieldNeighbors() {
+        return fieldNeighbors;
+    }
+
+    public List<BoardFieldObserver> getBoardFieldObservers() {
+        return boardFieldObservers;
+    }
+
     public void registerObserver(final BoardFieldObserver boardFieldObserver){
-        boardFieldObservers.add(boardFieldObserver);
+        getBoardFieldObservers().add(boardFieldObserver);
     }
 
     private void notifyObservers(final BoardFieldEvents boardFieldEvent){
-        boardFieldObservers.stream()
+        getBoardFieldObservers().stream()
                 .forEach(boardFieldObserver -> boardFieldObserver.eventOccurred(this, boardFieldEvent));
     };
 
@@ -48,19 +56,19 @@ public class BoardField {
      * @implNote Lesson 231 - Adding neighbors.
      */
     boolean checkAndAddNeighbor(final BoardField neighbor) {
-        boolean differentLine = (fieldLine != neighbor.fieldLine);
-        boolean differentColumn = (fieldColumn != neighbor.fieldColumn);
+        boolean differentLine = (getFieldLine() != neighbor.getFieldLine());
+        boolean differentColumn = (getFieldColumn() != neighbor.getFieldColumn());
         boolean diagonalLine = (differentLine && differentColumn);
 
-        int deltaLine = Math.abs(fieldLine - neighbor.fieldLine);
-        int deltaColumn = Math.abs(fieldColumn - neighbor.fieldColumn);
+        int deltaLine = Math.abs(getFieldLine() - neighbor.getFieldLine());
+        int deltaColumn = Math.abs(getFieldColumn() - neighbor.getFieldColumn());
         int deltaTotal = (deltaLine + deltaColumn);
 
         if((deltaTotal == 1) && (!diagonalLine)){
-            fieldNeighbors.add(neighbor);
+            getFieldNeighbors().add(neighbor);
             return true;
         } else if ((deltaTotal == 2) && (diagonalLine)) {
-            fieldNeighbors.add(neighbor);
+            getFieldNeighbors().add(neighbor);
             return true;
         } else {
             return false;
@@ -150,7 +158,7 @@ public class BoardField {
             }
             setFieldOpen(true);
             if(safeNeighborhood()){
-                fieldNeighbors.forEach(neighbor -> neighbor.openField());
+                getFieldNeighbors().forEach(neighbor -> neighbor.openField());
             }
             return true;
         } else {
@@ -162,7 +170,7 @@ public class BoardField {
      * @return True if the neighborhood is safe.
      */
     boolean safeNeighborhood(){
-        return fieldNeighbors.stream().noneMatch(neighbor -> neighbor.isFieldUndermine());
+        return getFieldNeighbors().stream().noneMatch(neighbor -> neighbor.isFieldUndermine());
     }
 
     /**
@@ -178,7 +186,7 @@ public class BoardField {
      * @return Number of undermines in the neighborhood.
      */
     long quantityOfUnderminesNeighborhood() {
-        return fieldNeighbors.stream().filter(neighbor -> neighbor.isFieldUndermine()).count();
+        return getFieldNeighbors().stream().filter(neighbor -> neighbor.isFieldUndermine()).count();
     }
 
     /**

@@ -92,8 +92,8 @@ public class GameBoard implements BoardFieldObserver {
      * Method that maps all fields neighboring the selection field on the game board.
      */
     private void mappingBoardNeighborhood() {
-        for(BoardField boardSelectedField: boardFields){
-            for(BoardField boardNeighborField: boardFields) {
+        for(BoardField boardSelectedField: getBoardFields()){
+            for(BoardField boardNeighborField: getBoardFields()) {
                 boardSelectedField.checkAndAddNeighbor(boardNeighborField);
             }
         }

@@ -62,7 +62,7 @@ public class GameBoardConsole {
         } catch (final ExitException e) {
             System.out.println("Goodbye!");
         } finally {
-            scannerInput.close();
+            getScannerInput().close();
         }
     }
 
@@ -113,7 +113,7 @@ public class GameBoardConsole {
     private String captureValue(final String messageToUser){
         System.out.print(messageToUser);
         final String QUIT_GAME = "QUIT";
-        final String requestCaptured = scannerInput.nextLine();
+        final String requestCaptured = getScannerInput().nextLine();
         if(QUIT_GAME.equalsIgnoreCase(requestCaptured)){
             throw new ExitException();
         }
