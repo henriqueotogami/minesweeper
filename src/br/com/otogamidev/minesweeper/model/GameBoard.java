@@ -41,7 +41,7 @@ public class GameBoard implements BoardFieldObserver {
     /**
      * @return An integer representing the number of lines on the game board.
      */
-    private int getBoardLines() { return boardLines; }
+    public int getBoardLines() { return boardLines; }
 
     /**
      * @param boardLines Define an integer representing the number of lines on the game board.
@@ -51,7 +51,7 @@ public class GameBoard implements BoardFieldObserver {
     /**
      * @return An integer representing the number of columns on the game board.
      */
-    private int getBoardColumns() { return boardColumns; }
+    public int getBoardColumns() { return boardColumns; }
 
     /**
      * @param boardColumns Define an integer representing the number of columns on the game board.
@@ -71,7 +71,7 @@ public class GameBoard implements BoardFieldObserver {
     /**
      * @return A list containing the defined fields of the board, sorted using rows and columns.
      */
-    private List<BoardField> getBoardFields() { return boardFields; }
+    public List<BoardField> getBoardFields() { return boardFields; }
 
     public List<Consumer<GameBoardEventsResult>> getGameBoardObservers() { return gameBoardObservers; }
 
