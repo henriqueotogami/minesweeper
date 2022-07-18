@@ -196,6 +196,7 @@ public class BoardField {
         setFieldOpen(false);
         setFieldMarked(false);
         setFieldUndermine(false);
+        notifyObservers(BoardFieldEvents.TO_RESTART);
     }
 
     /**

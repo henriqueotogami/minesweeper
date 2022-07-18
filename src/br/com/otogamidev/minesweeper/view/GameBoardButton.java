@@ -42,6 +42,11 @@ public class GameBoardButton extends JButton implements BoardFieldObserver, Mous
             default:
                 applyBoardFieldDefaultStyle();
         }
+
+        SwingUtilities.invokeLater(() -> {
+            repaint();
+            validate();
+        });
     }
 
     private void applyBoardFieldOpeningStyle() {
@@ -91,8 +96,11 @@ public class GameBoardButton extends JButton implements BoardFieldObserver, Mous
     }
 
     private void applyBoardFieldDefaultStyle(){
-        setBackground(BOARDFIELD_DEFAULT_BACKGROUND);
-        setText("M");
+        if(boardField.isFieldUndermine() == false) {
+            setBorder(BorderFactory.createBevelBorder(0));
+            setBackground(BOARDFIELD_DEFAULT_BACKGROUND);
+            setText("");
+        }
     }
 
     @Override

@@ -12,7 +12,14 @@ public class GameBoardPanel extends JPanel {
         setLayout(new GridLayout(gameBoard.getBoardLines(), gameBoard.getBoardColumns()));
         gameBoard.getBoardFields().forEach(boardField -> add(new GameBoardButton(boardField)));
         gameBoard.registerGameBoardObserver(observer -> {
-            // TODO Implementar retorno para o usuario
+            SwingUtilities.invokeLater(() -> {
+                String messageToUser = "You lost this game match!";
+                if(observer.isGameMatchWonByUser()){
+                    messageToUser = "You won this game match!";
+                }
+                JOptionPane.showMessageDialog(this, messageToUser);
+                gameBoard.restartBoardGame();
+            });
         });
     }
 }
