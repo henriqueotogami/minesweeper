@@ -22,6 +22,7 @@ public class GameBoardButton extends JButton implements BoardFieldObserver, Mous
     public GameBoardButton(final BoardField boardField) {
         this.boardField = boardField;
         setBackground(BOARDFIELD_DEFAULT_BACKGROUND);
+        setOpaque(true);
         setBorder(BorderFactory.createBevelBorder(0));
         addMouseListener(this);
         boardField.registerObserver(this);
@@ -44,8 +45,13 @@ public class GameBoardButton extends JButton implements BoardFieldObserver, Mous
     }
 
     private void applyBoardFieldOpeningStyle() {
-        setBackground(BOARDFIELD_DEFAULT_BACKGROUND);
         setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        if(boardField.isFieldUndermine()){
+            setBackground(BOARDFIELD_TO_EXPLODE_BACKGROUND);
+            return;
+        }
+        setBackground(BOARDFIELD_DEFAULT_BACKGROUND);
+
         switch(boardField.quantityOfUnderminesNeighborhood()){
             case 1:
                 setForeground(GREEN_TEXT);
@@ -73,15 +79,20 @@ public class GameBoardButton extends JButton implements BoardFieldObserver, Mous
     }
 
     private void applyBoardFieldMarkingStyle() {
-
+        setBackground(BOARDFIELD_TO_MARK_BACKGROUND);
+        setForeground(Color.BLACK);
+        setText("M");
     }
 
     private void applyBoardFieldExplodeStyle(){
-
+        setBackground(BOARDFIELD_TO_EXPLODE_BACKGROUND);
+        setForeground(Color.WHITE);
+        setText("X");
     }
 
     private void applyBoardFieldDefaultStyle(){
-
+        setBackground(BOARDFIELD_DEFAULT_BACKGROUND);
+        setText("M");
     }
 
     @Override

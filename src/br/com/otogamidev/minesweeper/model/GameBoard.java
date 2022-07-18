@@ -176,6 +176,7 @@ public class GameBoard implements BoardFieldObserver {
     private void showGameBoardUndermines() {
         getBoardFields().stream()
                 .filter(boardField -> boardField.isFieldUndermine())
+                .filter(boardField -> (!boardField.isFieldMarked()))
                 .forEach(boardField -> boardField.setFieldOpen(true));
     }
 
