@@ -128,7 +128,7 @@ public class BoardField {
     /**
      * Change the state of the field, whether the field is marked or not.
      */
-    void changeMarkedField() {
+    public void changeMarkedField() {
         setFieldMarked(!isFieldMarked());
         if(isFieldMarked()){
             notifyObservers(BoardFieldEvents.TO_MARK_ON);
@@ -150,7 +150,7 @@ public class BoardField {
     /**
      * @return True if the field is open and with no undermines around it.
      */
-    boolean openField() {
+    public boolean openField() {
         if((isFieldOpen() == false) && (isFieldMarked() == false)) {
             if(isFieldUndermine()) {
                 notifyObservers(BoardFieldEvents.TO_EXPLODE);
@@ -169,7 +169,7 @@ public class BoardField {
     /**
      * @return True if the neighborhood is safe.
      */
-    boolean safeNeighborhood(){
+    public boolean safeNeighborhood(){
         return getFieldNeighbors().stream().noneMatch(neighbor -> neighbor.isFieldUndermine());
     }
 
@@ -185,8 +185,8 @@ public class BoardField {
     /**
      * @return Number of undermines in the neighborhood.
      */
-    long quantityOfUnderminesNeighborhood() {
-        return getFieldNeighbors().stream().filter(neighbor -> neighbor.isFieldUndermine()).count();
+    public int quantityOfUnderminesNeighborhood() {
+        return (int) getFieldNeighbors().stream().filter(neighbor -> neighbor.isFieldUndermine()).count();
     }
 
     /**

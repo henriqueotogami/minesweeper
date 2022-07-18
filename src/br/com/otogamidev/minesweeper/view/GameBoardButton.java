@@ -6,9 +6,11 @@ import br.com.otogamidev.minesweeper.model.BoardFieldObserver;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 @SuppressWarnings("serial")
-public class GameBoardButton extends JButton implements BoardFieldObserver {
+public class GameBoardButton extends JButton implements BoardFieldObserver, MouseListener {
 
     private BoardField boardField;
 
@@ -21,6 +23,7 @@ public class GameBoardButton extends JButton implements BoardFieldObserver {
         this.boardField = boardField;
         setBackground(BOARDFIELD_DEFAULT_BACKGROUND);
         setBorder(BorderFactory.createBevelBorder(0));
+        addMouseListener(this);
         boardField.registerObserver(this);
     }
 
@@ -41,7 +44,32 @@ public class GameBoardButton extends JButton implements BoardFieldObserver {
     }
 
     private void applyBoardFieldOpeningStyle() {
+        setBackground(BOARDFIELD_DEFAULT_BACKGROUND);
+        setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        switch(boardField.quantityOfUnderminesNeighborhood()){
+            case 1:
+                setForeground(GREEN_TEXT);
+                break;
+            case 2:
+                setForeground(Color.BLUE);
+                break;
+            case 3:
+                setForeground(Color.YELLOW);
+                break;
+            case 4:
+            case 5:
+            case 6:
+                setForeground(Color.RED);
+                break;
+            default:
+                setForeground(Color.PINK);
+                break;
+        }
 
+        String labelUnderminesNeighborhood =
+                (boardField.safeNeighborhood() == false) ?
+                boardField.quantityOfUnderminesNeighborhood() + "" : "";
+        setText(labelUnderminesNeighborhood);
     }
 
     private void applyBoardFieldMarkingStyle() {
@@ -55,4 +83,22 @@ public class GameBoardButton extends JButton implements BoardFieldObserver {
     private void applyBoardFieldDefaultStyle(){
 
     }
+
+    @Override
+    public void mousePressed(final MouseEvent  mouseEvent) {
+        if(mouseEvent.getButton() == 1){
+            boardField.openField();
+        } else {
+            boardField.changeMarkedField();
+        }
+    }
+
+
+    public void mouseClicked(MouseEvent e) {}
+
+    public void mouseReleased(MouseEvent e) {}
+
+    public void mouseEntered(MouseEvent e) {}
+
+    public void mouseExited(MouseEvent e) {}
 }
