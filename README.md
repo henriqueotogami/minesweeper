@@ -21,7 +21,7 @@ Curso: [Cod3r | Java 2022 Completo](https://www.udemy.com/course/fundamentos-de-
 > Campo minado é um popular jogo de computador para um jogador. Foi inventado por Robert Donner em 1989 e tem como 
 > objectivo revelar um campo de minas sem que alguma seja detonada
 
-<hr>
+<br>
 
 ## Demonstração
 
@@ -37,6 +37,8 @@ Curso: [Cod3r | Java 2022 Completo](https://www.udemy.com/course/fundamentos-de-
 | --------------- | ---------------------- |
 | [![Watch the video](https://img.youtube.com/vi/sK4k7Olkqyg/maxresdefault.jpg)](https://youtu.be/sK4k7Olkqyg) | [![Watch the video](https://img.youtube.com/vi/lPeUcs8y0HM/maxresdefault.jpg)](https://youtu.be/lPeUcs8y0HM) |
 
+<br>
+
 ## Tecnologias
 
 - [x] [Java 11](https://www.oracle.com/br/java/technologies/javase/jdk11-archive-downloads.html);
@@ -46,7 +48,7 @@ Curso: [Cod3r | Java 2022 Completo](https://www.udemy.com/course/fundamentos-de-
 > 
 > [Adicionando JUnit5 ao IntelliJ](https://stackoverflow.com/questions/42721368/including-junit-5-dependency-in-intellij-idea)
 
-<hr>
+<br>
 
 ## Ambiente de Desenvolvimento
 
@@ -64,8 +66,9 @@ Curso: [Cod3r | Java 2022 Completo](https://www.udemy.com/course/fundamentos-de-
 - [Wakatime](https://wakatime.com);
 - [Xcode-Dark Theme](https://plugins.jetbrains.com/plugin/13106-xcode-dark-theme);
 
+<br>
 
-<hr>
+## Contribuições
 
 > ### Caso você queira ajudar a melhorar este repositório, qualquer ajuda é bem vinda.
 
