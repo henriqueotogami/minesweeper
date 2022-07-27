@@ -1,10 +1,10 @@
+<div align="center">
+
 # Minesweeper Game | Jogo do Campo Minado
 
-<hr>
 <img width="auto" src="https://github.com/HenriqueMAP/minesweeper/blob/master/img/minesweeper.png?raw=true">
 <br>
 <br>
-<div align="center">
 <img src="https://img.shields.io/github/issues/HenriqueMAP/minesweeper">
 <img src="https://img.shields.io/github/forks/HenriqueMAP/minesweeper">
 <img src="https://img.shields.io/github/stars/HenriqueMAP/minesweeper">
@@ -27,25 +27,24 @@ Curso: [Cod3r | Java 2022 Completo](https://www.udemy.com/course/fundamentos-de-
 
 ### Printscreens
 
-| Console IDE | Aplicativo Desktop |
-| ----------- | ------------------ |
+| Via Console IDE | Via Aplicativo Desktop |
+| --------------- | ---------------------- |
 | <img src="https://github.com/HenriqueMAP/minesweeper/blob/master/img/Otogamidev-Minesweeper-Console.png?raw=true"> | <img src="https://github.com/HenriqueMAP/minesweeper/blob/master/img/Otogamidev-Minesweeper-Swing.png?raw=true"> |
 
 ### GIFs
 
-| Console IDE | Aplicativo Desktop |
-| ----------- | ------------------ |
-| <img src="https://github.com/HenriqueMAP/minesweeper/blob/master/img/Otogamidev-Minesweeper-Console.gif?raw=true"> | <img src="https://github.com/HenriqueMAP/minesweeper/blob/master/img/Otogamidev-Minesweeper-Swing.gif?raw=true"> |
-
+| Via Console IDE | Via Aplicativo Desktop |
+| --------------- | ---------------------- |
+| [![Watch the video](https://img.youtube.com/vi/sK4k7Olkqyg/maxresdefault.jpg)](https://youtu.be/sK4k7Olkqyg) | [![Watch the video](https://img.youtube.com/vi/lPeUcs8y0HM/maxresdefault.jpg)](https://youtu.be/lPeUcs8y0HM) |
 
 ## Tecnologias
 
 - [x] [Java 11](https://www.oracle.com/br/java/technologies/javase/jdk11-archive-downloads.html);
 - [x] [JUnit 5.7.0](https://junit.org/junit5/docs/5.7.0/api/index.html);
 
-#### Links úteis
-
-[Adicionando JUnit5 ao IntelliJ](https://stackoverflow.com/questions/42721368/including-junit-5-dependency-in-intellij-idea)
+> #### Links úteis
+> 
+> [Adicionando JUnit5 ao IntelliJ](https://stackoverflow.com/questions/42721368/including-junit-5-dependency-in-intellij-idea)
 
 <hr>
 
