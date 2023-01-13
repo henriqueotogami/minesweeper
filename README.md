@@ -4,6 +4,9 @@
 
 <img width="auto" src="https://github.com/HenriqueMAP/minesweeper/blob/master/img/minesweeper.png?raw=true">
 <br>
+<div align="center">
+<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/henriquemap/minesweeper">
+</div>
 <br>
 <img src="https://img.shields.io/github/issues/HenriqueMAP/minesweeper">
 <img src="https://img.shields.io/github/forks/HenriqueMAP/minesweeper">
