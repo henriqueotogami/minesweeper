@@ -76,6 +76,23 @@ Curso: [Cod3r | Java 2022 Completo](https://www.udemy.com/course/fundamentos-de-
 
 <br>
 
+## 📝 Leia meus artigos
+
+### [Artigos no Medium](https://medium.com/@henriqueotogami)
+### [Artigos no Dev.to](https://dev.to/henriqueotogami)
+
+<br>
+
+## 💼 Conecte-se comigo
+### [Perfil no LinkedIn](https://www.linkedin.com/in/henrique-matheus-alves-pereira)
+
+<br>
+
+## 🙏🏻 Apoie meu conteúdo
+### [Compre-me um cafézinho | Buy me a coffee](https://ko-fi.com/henriqueotogami) ☕
+
+<hr>
+
 ## Contribuições
 
 > ### Caso você queira ajudar a melhorar este repositório, qualquer ajuda é bem vinda.
